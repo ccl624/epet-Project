@@ -41,9 +41,15 @@
       <listTile :showMore="'TA'" :width1="'auto'" :height="45"
                 :src1="`https://img2.epetbar.com/nowater/2016-12/02/12/617e8ae8c72da60d562a30170c26c118.jpg`"
                 :moreSrc="`https://img2.epetbar.com/nowater/2016-12/02/16/0d2acd3b4d742a510dfa0142d493e145.png`"></listTile>
-
+      <taPublic></taPublic>
+      <listTile :showMore="'isLike'" :width1="'auto'" :height="45"
+                :src1="`https://img2.epetbar.com/nowater/2017-01/13/20/a1225213b3d2bc9067676102e629bf1e.png`"></listTile>
+      <reputation></reputation>
+      <splitLine></splitLine>
+      <mainFooter></mainFooter>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -55,6 +61,9 @@
   import hotItem from '../hotItem/hotItem.vue'
   import hotVideo from '../hotVideo/hotVideo.vue'
   import brandSpePrice from '../brandSpePrice/brandSpePrice.vue'
+  import taPublic from '../taPublic/taPublic.vue'
+  import reputation from '../reputation/reputation.vue'
+  import mainFooter from '../mainFooter/mainFooter.vue'
 
   const epetbars = [
     {
@@ -101,7 +110,8 @@
         const homeContent = this.$refs.homeContent
         console.log(homeContent)
         this.homeContent = new Bscroll(homeContent,{
-          click: true
+          click: true,
+          probeType: 3,
         })
       })
     },
@@ -112,17 +122,17 @@
       surprise,
       hotItem,
       hotVideo,
-      brandSpePrice
+      brandSpePrice,
+      taPublic,
+      reputation,
+      mainFooter
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
 .home
-  position absolute
-  top 137px
-  bottom 45px
-  z-index -1
+  height 100%
   width 100%
   overflow hidden
   .oneYuan

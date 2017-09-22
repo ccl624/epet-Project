@@ -6,6 +6,8 @@ import healthy from '../components/healthy/healthy.vue'
 import toy from '../components/toy/toy.vue'
 import dailyUse from '../components/dailyUse/dailyUse.vue'
 
+import myLocation from '../components/myLocation/myLocation.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +31,10 @@ export default new Router({
     {
       path: '/petFood',
       component: petFood
+    },
+    {
+      path: '/myLocation',
+      component: myLocation
     },
     {
       path: '/',

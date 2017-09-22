@@ -29,16 +29,16 @@
   border-top: 1px solid #e7e7e7;
   height: 45px;
   line-height: 45px;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 103;
+  z-index: 1;
   .clearfix
     &>li
       float: left;
       width: 25%;
-      height: 55px;
+      height: 45px;
       background-size auto 40px
       background-repeat no-repeat
       background-position center 2px

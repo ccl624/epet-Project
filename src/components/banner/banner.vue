@@ -25,9 +25,11 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .mint-swipe
+    width 100%
     height 160px
     .mint-swipe-indicators
       .mint-swipe-indicator
+        bottom 10px
         background-color #fff
         opacity 1
         width 6px
@@ -35,8 +37,11 @@
       .is-active
         width 16px
         border-radius 3px
-    .mint-swipe-item
-      &>a
-        &>img
+    .mint-swipe-items-wrap
+      .mint-swipe-item
+        &>a
           width 100%
+          display block
+          &>img
+            width 100%
 </style>

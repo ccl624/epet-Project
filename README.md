@@ -6,5 +6,5 @@
   - Better-scroll 横向滑动的问题
   - mint-ui 引入
   - mint-ui 轮播图的实现
-  -
+  - 
   

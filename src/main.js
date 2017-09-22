@@ -4,8 +4,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import MintUI from 'mint-ui'
+import VueLazyload from 'vue-lazyload'
 Vue.use(MintUI)
-
+Vue.use(VueLazyload)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -13,6 +13,9 @@
         <img :src="moreSrc" alt="" />
       </a>
     </div>
+    <div :class="{isLike:showMore == 'isLike'}" v-show="showMore == 'isLike'">
+      <a href="javascript:;">好评率99.64%</a>
+    </div>
   </div>
 </template>
 
@@ -37,8 +40,11 @@
   width 100%
   position relative
   .titleImg
+    overflow hidden
     text-align center
     width 100%
+    &>img
+      vertical-align middle
   .more
     position absolute
     top 0
@@ -46,6 +52,7 @@
     &>a
       display block
       &>img
+        vertical-align middle
         display block
         margin 0 0 0 auto
         width 50%
@@ -57,7 +64,20 @@
     &>a
       display block
       &>img
+        vertical-align middle
         width: 75px;
         height: auto;
         margin: 10px 5px 0 0;
+  .isLike
+    position: absolute;
+    top: 14px;
+    right: -4px;
+    background: url(./index_icon_comment_sanjiao.png) no-repeat right;
+    background-size: 8px 9px;
+    padding-right: 10px;
+    transform: scale(0.84);
+    font-size 12px
+    color #999
+    &>a
+      font-size 12px
 </style>

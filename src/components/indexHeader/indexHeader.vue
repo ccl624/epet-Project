@@ -1,17 +1,17 @@
 <template>
-  <div style="float: left; width: 100%" >
+  <div style="float: left; width: 100%;height: 100%" >
     <div id="indexbox" class="main">
       <div class="indexHeader">
         <div class="indexNav">
           <div class="searchBar">
             <div class="location">
-              <a href="https://wap.epet.com/place.html?pet_type=dog&amp;fw=0">
+              <router-link to="/myLocation">
                 <!--狗狗站|重庆-->
                 <span class="catordog c89">狗狗站</span>
                 <span class="c89">|</span>
                 <span data-name="my-place" class="myposition c89 ft13">重庆</span>
                 <i></i>
-              </a>
+              </router-link>
             </div>
             <p class="search-text">
               <a href="https://wap.epet.com/search.html?pet_type=dog&amp;fw=0">
@@ -37,7 +37,6 @@
     </div>
     <router-view></router-view>
   </div>
-
 </template>
 
 <script>
@@ -82,9 +81,9 @@
         ul.style.width = liCount * liWidth  + 'px'
         const navbar = this.$refs.navbar
         console.log(navbar)
-        this.homeContent = new Bscroll(navbar,{
+        this.navbar = new Bscroll(navbar,{
           click: true,
-          scrollX: true
+          scrollX: true,
         })
       })
     },
