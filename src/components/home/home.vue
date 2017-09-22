@@ -120,7 +120,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
 .home
   position absolute
-  top 144px
+  top 137px
   bottom 45px
   z-index -1
   width 100%
