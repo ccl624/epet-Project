@@ -1,0 +1,19 @@
+bg-highlight-image($url)
+  background-image url($url+"_sel.png")
+  //@media (min-device-pixel-ratio:3),(-webkit-min-device-pixel-ratio:3)
+  //  background-image url($url+"@3x.png")
+bgr-image($urla)
+  background-image url($urla+".png")
+
+border-2px($color)
+  position relative
+  border none
+  &:after
+    content ''
+    position absolute
+    bottom 1px
+    left -10%
+    background $color
+    width 120%
+    height 2px
+    //transform scaleY(0.5)
