@@ -60,10 +60,10 @@
   export default {
     mounted () {
       this.$nextTick(() => {
-        const liWidth = 98.56
+        const liWidth = 109
         const ul = this.$refs.surpriseProduct.children[0]
         const liCount = ul.children.length
-        ul.style.width = liCount * liWidth  + 'px'
+        ul.style.width = liCount * liWidth + 10 + 'px'
         const surpriseProduct = this.$refs.surpriseProduct
         console.log(surpriseProduct)
         this.surpriseProduct = new Bscroll(surpriseProduct,{

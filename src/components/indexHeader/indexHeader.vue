@@ -54,7 +54,7 @@
           </router-link>
         </li>
         <li :class="isTap==3 ? 'myepet-a':'myepet-a'" @click="tap(3)">
-          <router-link to="/petFood" class="db">
+          <router-link to="/login" class="db">
             <div style="width: 100%;height: 100%"></div>
           </router-link>
         </li>

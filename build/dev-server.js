@@ -23,13 +23,20 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 
 //mock加载数据
+//城市列表
 const sheng = require('../src/mock/cities.json')
+const difClass = require('../src/mock/difClass.json')
 const router = express.Router()
 
 router.get('/sheng',function (req,res) {
   res.send({
     data:sheng
   })
+})
+
+//狗分类
+router.get('/difClass',function (req, res) {
+  res.send(difClass)
 })
 
 app.use('/api', router)

@@ -17,71 +17,21 @@
     </header>
     <div class="leftbox" ref="leftbox">
       <ul>
-        <li class="on">为您推荐</li>
-        <li data-id="5">狗狗主粮</li>
-        <li data-id="6 on">狗狗零食</li>
-        <li data-id="54">狗狗日用</li>
-        <li data-id="53">狗狗玩具</li>
-        <li data-id="48">狗狗保健</li>
-        <li data-id="49">狗狗医疗</li>
-        <li data-id="55">狗狗服饰</li>
-        <li data-id="2652">狗狗牵引</li>
-        <li data-id="2651">狗狗美容</li>
-        <li data-id="50">狗狗香波</li>
-        <li data-id="3288">狗狗书籍</li>
-        <li data-id="3895">狗狗周边</li>
-        <li data-id="3886">狗狗定制</li>
+        <li :class="{on:isCurrent == index}" v-for="(category, index) in difClass.categorys" @click="showCurrent(index)">{{category.name}}</li>
       </ul>
     </div>
-    <div class="rightbox">
+    <div class="rightbox" v-if="difClass.categorys">
       <div class="sort-recom">
         <div class="hot-recom">
-          <a href="javascript:;" class="title">热门分类</a>
+          <a href="javascript:;" class="title">{{difClass.categorys[isCurrent].cate_list[0].title}}</a>
           <ul class="hotItems">
-            <li>
-              <a href="https://wap.epet.com/goodslist.html?id_param=cateid_756&amp;fw=0" class="db">
+            <li v-for="list in difClass.categorys[isCurrent].cate_list[0].list">
+              <router-link to="/goods" class="db">
                 <div class="rela loadimg-nofixed">
-                  <img class="w100 image" src="https://img2.epetbar.com/nowater/2016-08/20/14/8095e54e9414a06705acb7471eac7629.jpg@!300w-b" lazy="loaded">
+                  <img class="w100 image" :src="list.photo" lazy="loaded">
                 </div>
-                <p class="ftc ft12 mt10 c333">肠胃调理</p>
-              </a>
-            </li>
-            <li class="fl mt10">
-              <a href="https://wap.epet.com/goodslist.html?id_param=cateid_7&amp;fw=0" class="db">
-                <div class="rela loadimg-nofixed">
-                  <img class="w100 image" src="https://img2.epetbar.com/nowater/2016-07/21/14/0f972761c08a37c8baff88fa9302053d.jpg@!300w-b" lazy="loaded">
-                </div>
-                <p class="ftc ft12 mt10 c333">进口狗粮</p>
-              </a></li>
-            <li class="fl mt10">
-              <a href="https://wap.epet.com/goodslist.html?id_param=cateid_10&amp;fw=0" class="db">
-                <div class="rela loadimg-nofixed">
-                  <img class="w100 image" src="https://img2.epetbar.com/nowater/2017-05/26/10/2eeb97d6268f555de24ec370fd0de2ad.jpg@!300w-b" lazy="loaded">
-                </div>
-                <p class="ftc ft12 mt10 c333">磨牙洁齿</p>
-              </a>
-            </li>
-            <li class="fl mt10"><a href="https://wap.epet.com/goodslist.html?id_param=cateid_413&amp;fw=0" class="db">
-              <div class="rela loadimg-nofixed">
-                <img class="w100 image" src="https://img2.epetbar.com/nowater/2017-05/04/16/fd206e6489657294e9067d349ea297f1.jpg@!300w-b" lazy="loaded">
-              </div>
-              <p class="ftc ft12 mt10 c333">强化免疫</p>
-            </a>
-            </li>
-            <li class="fl mt10">
-              <a href="https://wap.epet.com/goodslist.html?id_param=cateid_3555&amp;fw=0" class="db">
-                <div class="rela loadimg-nofixed">
-                  <img class="w100 image" src="https://img2.epetbar.com/nowater/2017-05/12/10/f38b8a4245c34c33061d04ad1e8009dd.jpg@!300w-b" lazy="loaded">
-                </div>
-                <p class="ftc ft12 mt10 c333">国产狗粮</p>
-              </a>
-            </li>
-            <li class="fl mt10">
-              <a href="https://wap.epet.com/goodslist.html?id_param=cateid_521&amp;fw=0" class="db"><div class="rela loadimg-nofixed">
-                <img class="w100 image" src="https://img2.epetbar.com/nowater/cates/2014-03/24/81f4ac6b5b31143c056046bd9dc14b9e.jpg@!300w-b" lazy="loaded">
-              </div>
-                <p class="ftc ft12 mt10 c333">体内驱虫</p>
-              </a>
+                <p class="ftc ft12 mt10 c333">{{list.name}}</p>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -94,14 +44,32 @@
   import axios from 'axios'
   import Bscroll from 'better-scroll'
   export default {
+    data () {
+      return {
+        difClass: {},
+        isCurrent: 0
+      }
+    },
     mounted () {
-      this.$nextTick(() => {
-        const leftbox = this.$refs.leftbox
-        console.log(leftbox)
-        this.homeContent = new Bscroll(leftbox,{
-          click: true
+
+      axios.get('/api/difClass').then((res) => {
+
+        this.difClass = res.data
+
+        this.$nextTick(() => {
+          const leftbox = this.$refs.leftbox
+          console.log(leftbox)
+          this.homeContent = new Bscroll(leftbox,{
+            click: true
+          })
         })
       })
+    },
+
+    methods: {
+      showCurrent (index) {
+        this.isCurrent = index
+      }
     }
   }
 </script>

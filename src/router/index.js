@@ -8,6 +8,8 @@ import dailyUse from '../components/dailyUse/dailyUse.vue'
 
 import myLocation from '../components/myLocation/myLocation.vue'
 import difClass from '../components/difClass/difClass.vue'
+import myEpet from '../components/myEpet/myEpet.vue'
+import goods from '../components/goods/goods.vue'
 
 Vue.use(Router)
 
@@ -40,6 +42,14 @@ export default new Router({
     {
       path: '/difClass',
       component: difClass
+    },
+    {
+      path: '/login',
+      component: myEpet
+    },
+    {
+      path: '/goods',
+      component: goods
     },
     {
       path: '/',

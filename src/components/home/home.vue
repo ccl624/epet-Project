@@ -65,6 +65,11 @@
   import reputation from '../reputation/reputation.vue'
   import mainFooter from '../mainFooter/mainFooter.vue'
 
+  import { Indicator } from 'mint-ui'
+//  Indicator.open({
+//    text: '加载中...',
+//    spinnerType: 'fading-circle'
+//  });
   const epetbars = [
     {
       link: "http://wap.epet.com/group/main.html?pet_type=dog&amp;fw=0",
@@ -104,6 +109,9 @@
       return {
         epetbars: epetbars,
       }
+    },
+    created () {
+
     },
     mounted () {
       this.$nextTick(() => {

@@ -1,31 +1,32 @@
 <template>
-  <div class="myLocation">
-    <header class="headTop">
-      <span class="back"></span>
-      <span class="title">选择收货地区</span>
-      <span class="pullRight"></span>
-    </header>
-    <div class="locationDetail">
-      <div class="petStation">
-        <span class="petClass">猫猫站</span>
-        <span class="currentArea petClass">狗狗站</span>
-        <span class="petClass">水族站</span>
-      </div>
-      <div>
-        <div class="defaultLocation">
-          <span>当前默认地址：天津 和平区</span>
+  <div class="myLocation" ref="myLocation">
+    <div>
+      <header class="headTop">
+        <span class="back"></span>
+        <span class="title">选择收货地区</span>
+        <span class="pullRight"></span>
+      </header>
+      <div class="locationDetail">
+        <div class="petStation">
+          <span class="petClass">猫猫站</span>
+          <span class="currentArea petClass">狗狗站</span>
+          <span class="petClass">水族站</span>
         </div>
-        <ul class="data-reactid">
-          <li v-for="location in locations">{{location}}</li>
-        </ul>
+        <div>
+          <div class="defaultLocation">
+            <span>当前默认地址：天津 和平区</span>
+          </div>
+          <ul class="data-reactid">
+            <li v-for="location in locations">{{location.name}}</li>
+          </ul>
+        </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
 <script>
+  import Bscroll from 'better-scroll'
   import axios from 'axios'
   export default {
     data () {
@@ -38,7 +39,14 @@
         //console.log(JSON.parse(res.data));
         const cities = res.data
         this.locations = res.data.data
-        console.log(this.locations);
+
+        this.$nextTick(() => {
+          const myLocation = this.$refs.myLocation
+          console.log(myLocation)
+          this.myLocation = new Bscroll(myLocation,{
+            click: true
+          })
+        })
       })
     }
   }
@@ -47,7 +55,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
 .myLocation
   position fixed
-  top 0px
+  top 0
   width 100%
   height 100%
   z-index 104
