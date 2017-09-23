@@ -26,6 +26,8 @@ var app = express()
 //城市列表
 const sheng = require('../src/mock/cities.json')
 const difClass = require('../src/mock/difClass.json')
+const goods = require('../src/mock/goods.json')
+
 const router = express.Router()
 
 router.get('/sheng',function (req,res) {
@@ -37,6 +39,10 @@ router.get('/sheng',function (req,res) {
 //狗分类
 router.get('/difClass',function (req, res) {
   res.send(difClass)
+})
+
+router.get('/goods',function (req, res) {
+  res.send(goods)
 })
 
 app.use('/api', router)

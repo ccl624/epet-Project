@@ -2,7 +2,7 @@
   <div class="myEpet">
     <header class="myEpetHeader">
       <div class="head_top">
-        <span class="return"></span>
+        <span class="return" @click="backPage"></span>
         <span class="register">注册</span>
       </div>
       <div class="myEpetLogo">
@@ -79,6 +79,12 @@
   export default {
     mounted() {
 //      Indicator.close();
+    },
+
+    methods: {
+      backPage () {
+        history.back()
+      }
     }
   }
 </script>

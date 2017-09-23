@@ -2,7 +2,7 @@
   <div class="myLocation" ref="myLocation">
     <div>
       <header class="headTop">
-        <span class="back"></span>
+        <span class="back" @click="backPage"></span>
         <span class="title">选择收货地区</span>
         <span class="pullRight"></span>
       </header>
@@ -48,6 +48,11 @@
           })
         })
       })
+    },
+    methods: {
+      backPage () {
+        history.back()
+      }
     }
   }
 </script>
