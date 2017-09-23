@@ -40,7 +40,7 @@
       margin-right 2%
       vertical-align middle
       position absolute
-      top: 20px
+      top: 12px
       left: 2%
       &>img
         height 100%

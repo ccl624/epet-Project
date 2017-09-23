@@ -1,6 +1,6 @@
 <template>
   <div class="home" ref="homeContent">
-    <div>
+    <div style="padding-top: 170px;margin-top: -170px">
       <homeBanner></homeBanner>
       <div class="oneYuan">
         <a href="https://sale.epet.com/m/1706/newWelfare.html?fw=0" class="pointer">
@@ -8,7 +8,7 @@
         </a>
       </div>
       <div class="petClass">
-        <ul class="clearfix">
+        <ul class="petImgs">
           <li class="fl" style="width: 25%;" v-for="epetbar in epetbars">
             <a :href="epetbar.link"><img :src="epetbar.epetbarImg" lazy="loaded"></a>
           </li>
@@ -110,8 +110,7 @@
         const homeContent = this.$refs.homeContent
         console.log(homeContent)
         this.homeContent = new Bscroll(homeContent,{
-          click: true,
-          probeType: 3,
+          click: true
         })
       })
     },
@@ -132,6 +131,8 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
 .home
+  //margin-top -184px
+  //padding-top 144px
   height 100%
   width 100%
   overflow hidden
@@ -142,7 +143,7 @@
   .petClass
     padding-bottom 10px
     padding-top 10px
-    .clearfix
+    .petImgs
       overflow hidden
       .fl
         float left

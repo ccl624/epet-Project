@@ -1,16 +1,16 @@
 <template>
   <div class="footernav bottom_menu_bar">
     <ul class="clearfix">
-      <li class="indexA">
-        <a href="https://wap.epet.com/main.html?pet_type=dog" class="db"></a>
+      <li :class="isTap==0 ? 'index-A':'index-a'" @click="tap(0)">
+        <router-link to="/home"></router-link>
       </li>
-      <li class="type-a">
+      <li :class="isTap==1 ? 'type-A':'type-a'" @click="tap(1)">
         <a href="https://wap.epet.com/category.html?pet_type=dog" class="db"></a>
       </li>
-      <li class="cart-a">
+      <li :class="isTap==2 ? 'cart-a':'cart-a'" @click="tap(2)">
         <a href="https://wap.epet.com/cart/main.html" class="db"></a>
       </li>
-      <li class="myepet-a">
+      <li :class="isTap==3 ? 'myepet-a':'myepet-a'" @click="tap(3)">
         <a href="https://wap.epet.com/user/UserCenter.html" class="db"></a>
       </li>
     </ul>
@@ -19,7 +19,18 @@
 
 <script>
   //import { Tabbar, TabItem } from 'mint-ui';
-  export default {}
+  export default {
+    data () {
+      return {
+        isTap:0
+      }
+    },
+    methods: {
+      tap (index) {
+        this.isTap = index
+      }
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -42,12 +53,14 @@
       background-size auto 40px
       background-repeat no-repeat
       background-position center 2px
-    .indexA
-      bg-highlight-image("./main_tab_1")
     .index-a
+      background-image url("./main_tab_1.png")
+    .index-A
       background-image url("./main_tab_1_sel.png")
     .type-a
       background-image url("./main_tab_2.png")
+    .type-A
+      background-image url("./main_tab_2_sel.png")
     .cart-a
       background-image url("./main_tab_3.png")
     .myepet-a

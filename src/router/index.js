@@ -7,6 +7,7 @@ import toy from '../components/toy/toy.vue'
 import dailyUse from '../components/dailyUse/dailyUse.vue'
 
 import myLocation from '../components/myLocation/myLocation.vue'
+import difClass from '../components/difClass/difClass.vue'
 
 Vue.use(Router)
 
@@ -35,6 +36,10 @@ export default new Router({
     {
       path: '/myLocation',
       component: myLocation
+    },
+    {
+      path: '/difClass',
+      component: difClass
     },
     {
       path: '/',

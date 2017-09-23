@@ -35,7 +35,32 @@
         </div>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view ref="routerData"></router-view>
+    <div class="footernav bottom_menu_bar">
+      <ul class="navLists">
+        <li :class="isTap==0 ? 'index-A':'index-a'" @click="tap(0)">
+          <router-link to="/home">
+            <div style="width: 100%;height: 100%"></div>
+          </router-link>
+        </li>
+        <li :class="isTap==1 ? 'type-A':'type-a'" @click="tap(1)">
+          <router-link to="/difClass" class="db">
+            <div style="width: 100%;height: 100%"></div>
+          </router-link>
+        </li>
+        <li :class="isTap==2 ? 'cart-a':'cart-a'" @click="tap(2)">
+          <router-link to="/petFood" class="db">
+            <div style="width: 100%;height: 100%"></div>
+          </router-link>
+        </li>
+        <li :class="isTap==3 ? 'myepet-a':'myepet-a'" @click="tap(3)">
+          <router-link to="/petFood" class="db">
+            <div style="width: 100%;height: 100%"></div>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </template>
 
@@ -70,7 +95,8 @@
     data () {
       return {
         liArry: liArry,
-        currentli: 0
+        currentli: 0,
+        isTap:0
       }
     },
     mounted () {
@@ -90,6 +116,9 @@
     methods: {
       isCurrent (index) {
         this.currentli = index
+      },
+      tap (index) {
+        this.isTap = index
       }
     },
   }
@@ -193,4 +222,36 @@
                 vertical-align middle
                 height 100%
                 position relative
+  .footernav
+    background-color #fff
+    border-top: 1px solid #e7e7e7;
+    height: 45px;
+    line-height: 45px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    .navLists
+      overflow hidden
+      height 45px
+      &>li
+        float: left;
+        width: 25%;
+        height: 46px;
+        background-size auto 40px
+        background-repeat no-repeat
+        background-position center 2px
+      .index-a
+        background-image url("./main_tab_1.png")
+      .index-A
+        background-image url("./main_tab_1_sel.png")
+      .type-a
+        background-image url("./main_tab_2.png")
+      .type-A
+        background-image url("./main_tab_2_sel.png")
+      .cart-a
+        background-image url("./main_tab_3.png")
+      .myepet-a
+        background-image url("./main_tab_4.png")
 </style>

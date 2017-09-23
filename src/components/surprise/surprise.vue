@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="surprise">
-      <div class="surprise-tit clearfix pad10 rela overflow">
+      <div class="surprise-tit">
         <div class="fl titimg">
           <img src="./suprice.png">
         </div>

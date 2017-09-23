@@ -21,6 +21,19 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+//mock加载数据
+const sheng = require('../src/mock/cities.json')
+const router = express.Router()
+
+router.get('/sheng',function (req,res) {
+  res.send({
+    data:sheng
+  })
+})
+
+app.use('/api', router)
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
