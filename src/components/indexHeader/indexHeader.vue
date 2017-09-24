@@ -88,7 +88,7 @@
       link: '/dailyUse'
     },
     {
-      title: '日用外出',
+      title: '美容香波',
       link: '/dailyUse'
     }]
   export default {

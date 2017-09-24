@@ -1,55 +1,15 @@
 <template>
   <div class="surpriseProduct" ref="surpriseProduct">
-    <ul class="productsList">
-      <li class="product">
-        <a href="https://wap.epet.com/surprise/Main.html?fw=0">
-          <img src="https://img1.epetbar.com/2017-05/15/16/b7c678fac22af05f7c8e02e2c80c3a3c.jpg" alt="">
+    <ul class="productsList" v-if="">
+      <li class="product" v-for="(supgood, index) in supgoods" :key="index">
+        <router-link to="/goods">
+          <img :src="supgood.image.image" alt="">
           <div class="currentPrice">
             <span class="ft12">¥</span>
-            <span class="ft14">119.00</span>
+            <span class="ft14">{{supgood.sale_price}}</span>
           </div>
-          <p class="reducePrice">省￥19.00</p>
-        </a>
-      </li>
-      <li class="product">
-        <a href="https://wap.epet.com/surprise/Main.html?fw=0">
-          <img src="https://img1.epetbar.com/2017-05/15/16/b7c678fac22af05f7c8e02e2c80c3a3c.jpg" alt="">
-          <div class="currentPrice">
-            <span class="ft12">¥</span>
-            <span class="ft14">119.00</span>
-          </div>
-          <p class="reducePrice">省￥19.00</p>
-        </a>
-      </li>
-      <li class="product">
-        <a href="https://wap.epet.com/surprise/Main.html?fw=0">
-          <img src="https://img1.epetbar.com/2017-05/15/16/b7c678fac22af05f7c8e02e2c80c3a3c.jpg" alt="">
-          <div class="currentPrice">
-            <span class="ft12">¥</span>
-            <span class="ft14">119.00</span>
-          </div>
-          <p class="reducePrice">省￥19.00</p>
-        </a>
-      </li>
-      <li class="product">
-        <a href="https://wap.epet.com/surprise/Main.html?fw=0">
-          <img src="https://img1.epetbar.com/2017-05/15/16/b7c678fac22af05f7c8e02e2c80c3a3c.jpg" alt="">
-          <div class="currentPrice">
-            <span class="ft12">¥</span>
-            <span class="ft14">119.00</span>
-          </div>
-          <p class="reducePrice">省￥19.00</p>
-        </a>
-      </li>
-      <li class="product">
-        <a href="https://wap.epet.com/surprise/Main.html?fw=0">
-          <img src="https://img1.epetbar.com/2017-05/15/16/b7c678fac22af05f7c8e02e2c80c3a3c.jpg" alt="">
-          <div class="currentPrice">
-            <span class="ft12">¥</span>
-            <span class="ft14">119.00</span>
-          </div>
-          <p class="reducePrice">省￥19.00</p>
-        </a>
+          <p class="reducePrice">{{supgood.little_price}}</p>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -58,6 +18,9 @@
 <script>
   import Bscroll from 'better-scroll'
   export default {
+    props: {
+      supgoods: []
+    },
     mounted () {
       this.$nextTick(() => {
         const liWidth = 109

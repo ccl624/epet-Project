@@ -36,4 +36,12 @@
   -webkit-animation: nnh 2.5s steps(2) infinite;
   animation: nnh 2.5s steps(2) infinite;
   cursor: pointer;
+@keyframes nnh {
+  from {
+    background-position 0
+  }
+  to{
+    background-position -80px
+  }
+}
 </style>

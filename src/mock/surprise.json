@@ -1,0 +1,42 @@
+/* https://mall.api.epet.com/v3/index/main.html?do=GetDynamicV315&pet_type=dog&version=345&system=wap&isWeb=1&_=1506221647162 */
+{
+    "msg": "",
+    "code": "succeed",
+    "login_status": 0,
+    "mall_uid": "epet_0",
+    "mall_user": "",
+    "sys_time": 1506221555,
+    "hash": "",
+    "epet_site": "epet",
+    "data": {
+        "21": {
+            "index": "21",
+            "is_show": 0,
+            "type": "11",
+            "is_dynamic": "1",
+            "type_name": "猜你想买模板"
+        },
+        "2438": {
+            "index": "2438",
+            "is_show": 1,
+            "type": "1",
+            "is_dynamic": "1",
+            "type_name": "图片轮播广告",
+            "value": [
+                {
+                    "advid": "22564",
+                    "atid": "0",
+                    "image": "https://img2.epetbar.com/nowater/2017-07/03/8/747562c921cd37cf0dafbe24ccfe62bd.gif",
+                    "img_size": "750x240",
+                    "target": {
+                        "mode": "web",
+                        "param": "https://sale.epet.com/m/1706/newWelfare.html"
+                    }
+                }
+            ]
+        }
+    },
+    "is_dynamic": 1,
+    "push_alias": "appmall_",
+    "push_tags": "version345,"
+}

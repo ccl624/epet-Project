@@ -1,9 +1,9 @@
 <template>
   <div class="divboximg flex">
     <div class="divimg" style="width: 42.53%; height: auto">
-      <a href="https://wap.epet.com/main.html?menu_param=4&amp;is_single=1&amp;fw=0">
-        <img name="319x379" src="https://img2.epetbar.com/nowater/2017-09/21/09/03f51eb78add57a87f2619517758cbf4.jpg@!water" lazy="loaded">
-      </a>
+      <router-link to="/goods">
+        <img name="319x379" :src="hotList.content_images[0][0].image">
+      </router-link>
     </div>
     <div class="divimg" style="width: 57.33%;">
       <a href="http://sale.epet.com/m/mould/activity/ztMjQ5Mw%3D%3D.html?tid=2493&amp;fw=0">
@@ -17,7 +17,11 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      hotList: Object
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

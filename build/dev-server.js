@@ -27,6 +27,7 @@ var app = express()
 const sheng = require('../src/mock/cities.json')
 const difClass = require('../src/mock/difClass.json')
 const goods = require('../src/mock/goods.json')
+const homeData = require('../src/mock/homeData.json')
 
 const router = express.Router()
 
@@ -43,6 +44,10 @@ router.get('/difClass',function (req, res) {
 
 router.get('/goods',function (req, res) {
   res.send(goods)
+})
+
+router.get('/homeData',function (req, res) {
+  res.send(homeData)
 })
 
 app.use('/api', router)

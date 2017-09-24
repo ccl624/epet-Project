@@ -2,8 +2,8 @@
   <div>
     <div class="surprise">
       <div class="surprise-tit">
-        <div class="fl titimg">
-          <img src="./suprice.png">
+        <div class="titimg" v-if="surprise && surprise.surprise_icon">
+          <img :src="surprise.surprise_icon.image">
         </div>
         <div class="remindTime">距本场结束</div>
         <div class="surpriseTime">
@@ -14,12 +14,12 @@
           <span class="remindSeconds time" v-text="12"></span>
         </div>
         <div class="more" v-show="showMore">
-          <a href="https://wap.epet.com/main.html?menu_param=121&pet_type=dog&fw=0">
-            <img src="https://img2.epetbar.com/nowater/2016-10/24/20/30b2568de06cb7c96a9af9ad4be3cae5.png" alt="" />
-          </a>
+          <router-link to="/goods">
+            <img :src="surprise.right_image.image" alt="" />
+          </router-link>
         </div>
       </div>
-      <surpriseProduct></surpriseProduct>
+      <surpriseProduct :supgoods="surprise.goods"></surpriseProduct>
     </div>
   </div>
 
@@ -27,9 +27,24 @@
 
 <script>
   import surpriseProduct from './surpriseProduct.vue'
+  const date = new Date
   export default {
     props: {
-      showMore: Boolean
+      showMore: Boolean,
+      surprise: Object,
+      hour:2,
+      mins:60,
+      secs:60
+    },
+    mounted () {
+//      setInterval(() => {
+//        this.secs = 60 - date.getSeconds()
+//        this.mins = 60 - date.getMinutes()
+//        this.hour = 2
+//      },1000)
+    },
+    computed: {
+
     },
     components: {
       surpriseProduct
