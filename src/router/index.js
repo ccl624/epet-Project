@@ -10,11 +10,21 @@ import myLocation from '../components/myLocation/myLocation.vue'
 import difClass from '../components/difClass/difClass.vue'
 import myEpet from '../components/myEpet/myEpet.vue'
 import goods from '../components/goods/goods.vue'
+import loginSuccess from '../components/myEpet/loginSuccess.vue'
+import register from '../components/register/register.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/register',
+      component: register
+    },
+    {
+      path: '/loginSuccess',
+      component: loginSuccess
+    },
     {
       path: '/home',
       component: home

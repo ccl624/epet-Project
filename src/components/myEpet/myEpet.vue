@@ -2,9 +2,11 @@
   <div class="myEpet">
     <header class="myEpetHeader">
       <div class="head_top">
-        <span class="return" @click="backPage"></span>
+      <span class="return" @click="backPage"></span>
+      <router-link to="/register">
         <span class="register">注册</span>
-      </div>
+      </router-link>
+    </div>
       <div class="myEpetLogo">
         <img src="./logo.png" alt="">
       </div>
@@ -44,10 +46,12 @@
               <span class="mpasswordIco"></span>
               <input type="text" placeholder="请输入图片内容" class="text"
                      name="password" id="varifyImg" v-model="imgNumber">
+              <img class="ifyImgCode" src="./seccode.jpg" alt="">
             </li>
             <li>
               <span class="mpasswordIco"></span>
               <input type="password" placeholder="动态密码" class="text" name="password" id="code">
+              <a class="getCode" href="javascript:;">获取动态密码</a>
             </li>
           </ul>
         </form>
@@ -85,6 +89,8 @@
 
 <script>
   import axios from 'axios'
+  import { MessageBox } from 'mint-ui'
+
   export default {
     data(){
       return {
@@ -108,19 +114,27 @@
       },
       sendAjax () {
         const username = this.username.trim()
-        const password = this.password
-        const url = `/api/userdata?username=${username}&password=${password}&userID=${Date.now()}`
+        const password = this.password.trim()
+        const url = `/api/login?username=${username}&password=${password}&userID=${Date.now()}`
         axios.get(url).then( res => {
-          console.log("res",res.data);
-          const userIndex = res.data.findIndex((item) => {
-            return (item.username == this.username && item.password == this.password)
+
+          const userIndex = res.data.find((item) => {
+            console.log("item",item.username,item.password)
+            console.log("this",this.username,this.password)
+            return item.username == username
           })
-          console.log("userIndex",userIndex);
-          if(userIndex == -1){
-            alert("用户名不存在")
-          }else{
-            alert("登录成功")
-          }
+
+          console.log(userIndex.password.trim());
+          this.$nextTick(() => {
+            if(!userIndex){
+              MessageBox('提示', '登录失败，请重新登录')
+            }else{
+              if(userIndex.password.trim() == password){
+                location.href="#/loginSuccess";
+              }
+            }
+          })
+
           this.username = ''
           this.password = ''
         })
@@ -157,13 +171,14 @@
           height: 20px;
           position: absolute;
           margin-top: 16px;
-        .register
-          position absolute
-          right 10px
-          top 0
-          display block
-          font-size 1em
-          color #fff
+        &>a
+          .register
+            position absolute
+            right 10px
+            top 0
+            display block
+            font-size 1em
+            color #fff
       .myEpetLogo
         padding: 1em 0 2em 0;
         & > img
@@ -209,6 +224,23 @@
               border-bottom: #e2e2e2 solid 1px;
               padding: 12px 0 12px 30px;
               position: relative;
+              .getCode
+                background: #fff;
+                color: #ff4259;
+                border: 1px solid #eb4c33;
+                position: absolute;
+                right: 0;
+                top: 0.5em;
+                border-radius: 3px;
+                width: 100px;
+                text-align: center;
+                padding: 0.3em 0;
+                font-size 12px
+              .ifyImgCode
+                top 8px
+                right: 0px;
+                position: absolute;
+                vertical-align: middle;
               &>input
                 display: block;
                 height: 21px;

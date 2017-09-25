@@ -69,7 +69,7 @@ var content = jsonfile.readFile('./src/mock/userData.json',function (err,data) {
   }
 });
 
-router.get('/userdata',function (req, res) {
+router.get('/login',function (req, res) {
   var username = req.query.username
   var password = req.query.password
   var userID = req.query.userID
@@ -81,9 +81,39 @@ router.get('/userdata',function (req, res) {
     password:password
   }
   console.log(obj);
-  //userData.push(obj)
-  //jsonfile.writeFile('./src/mock/userData.json',userData);
   res.send(userData)
+})
+
+router.get('/register',function (req,res) {
+  const username = req.query.username
+  const password = req.query.password
+  const phonenumber = req.query.phonenumber
+  const ifyImgCode = req.query.ifyImgCode
+  const activeCode = req.query.activeCode
+
+  const obj = {
+    username,
+    password,
+    phonenumber,
+    ifyImgCode,
+    activeCode
+  }
+  const userIndex = userData.findIndex(function (item) {
+    return item.username === username
+  })
+
+  if(userIndex == -1) {
+    userData.push(obj)
+    jsonfile.writeFile('./src/mock/userData.json',userData,function (err) {
+      console.log(err);
+      if(!err){
+        res.send("success")
+      }
+    });
+  }else{
+    res.send("failed")
+  }
+
 })
 
 
