@@ -153,7 +153,8 @@
             font-family: "Microsoft Yahei",tahoma,arial;
             outline: none;
             &::-webkit-input-placeholder
-              color: #d7d7d7
+              color: #B8B8B8
+              font-size 13px
           .phoneIco
             background: url(./ico1.png) no-repeat;
           .ifyImgIco

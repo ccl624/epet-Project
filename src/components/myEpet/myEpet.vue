@@ -25,7 +25,7 @@
           <ul class="mform">
             <li>
               <span class="mNameIco"></span>
-              <input type="username" placeholder="手机号/邮箱/用户名" class="text"
+              <input type="username" placeholder="手机号/用户名" class="text"
                      name="username" id="username" v-model="username"></li>
             <li>
               <span class="mpasswordIco"></span>
@@ -90,7 +90,7 @@
 <script>
   import axios from 'axios'
   import { MessageBox } from 'mint-ui'
-
+  import PubSub from 'pubsub-js'
   export default {
     data(){
       return {
@@ -98,7 +98,7 @@
         phonenumber:'',
         username: '',
         password: '',
-        imgNumber: '1234'
+        imgNumber: ''
       }
     },
     mounted() {
@@ -107,7 +107,7 @@
 
     methods: {
       backPage () {
-        history.back()
+        location.href="#/home";
       },
       showCurrentFrom (index) {
         this.showFrom = index
@@ -116,22 +116,30 @@
         const username = this.username.trim()
         const password = this.password.trim()
         const url = `/api/login?username=${username}&password=${password}&userID=${Date.now()}`
-        axios.get(url).then( res => {
-
+        axios.get('/api/login',{
+          params: {
+            username,
+            password
+          }
+        }).then( res => {
           const userIndex = res.data.find((item) => {
-            console.log("item",item.username,item.password)
-            console.log("this",this.username,this.password)
-            return item.username == username
+          return (item.username === username || item.phonenumber == username)
           })
 
-          console.log(userIndex.password.trim());
+          //console.log(userIndex.password.trim());
           this.$nextTick(() => {
             if(!userIndex){
               MessageBox('提示', '登录失败，请重新登录')
-            }else{
-              if(userIndex.password.trim() == password){
+            }else if(password){
+              if(userIndex.password.trim() === password){
+                console.log(111);
+                PubSub.publish('msg',userIndex.username)
                 location.href="#/loginSuccess";
+              }else{
+                MessageBox('提示', '密码错误')
               }
+            }else{
+              MessageBox('提示', '其他错误')
             }
           })
 

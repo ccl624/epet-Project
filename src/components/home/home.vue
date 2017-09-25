@@ -67,10 +67,6 @@
   import mainFooter from '../mainFooter/mainFooter.vue'
 
   import { Indicator } from 'mint-ui'
-//  Indicator.open({
-//    text: '加载中...',
-//    spinnerType: 'fading-circle'
-//  });
   export default {
     data () {
       return {

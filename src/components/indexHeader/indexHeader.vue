@@ -14,7 +14,7 @@
               </router-link>
             </div>
             <p class="search-text">
-              <a href="https://wap.epet.com/search.html?pet_type=dog&amp;fw=0">
+              <a href="#/home">
                 <input type="search" placeholder="搜索商品和品牌" disabled="disabled" />
                 <span class="eico serach-ico"></span>
               </a>
@@ -54,7 +54,7 @@
           </router-link>
         </li>
         <li :class="isTap==3 ? 'myepet-a':'myepet-a'" @click="tap(3)">
-          <router-link to="/login" class="db">
+          <router-link :to="isLogin ? '/loginSuccess':'/login'" class="db">
             <div style="width: 100%;height: 100%"></div>
           </router-link>
         </li>
@@ -66,6 +66,7 @@
 
 <script>
   import Bscroll from 'better-scroll'
+  import PubSub from 'pubsub-js'
   const liArry = [
     {
       title: '首页',
@@ -96,7 +97,8 @@
       return {
         liArry: liArry,
         currentli: 0,
-        isTap:0
+        isTap:0,
+
       }
     },
     mounted () {
@@ -112,6 +114,7 @@
           scrollX: true,
         })
       })
+      console.log(this.isLogin)
     },
     methods: {
       isCurrent (index) {
@@ -121,6 +124,12 @@
         this.isTap = index
       }
     },
+    computed: {
+      isLogin () {
+        console.log(localStorage.getItem('username'));
+        return !!localStorage.getItem('username')
+      }
+    }
   }
 </script>
 

@@ -57,6 +57,7 @@ router.get('/homeData',function (req, res) {
 
 //用户数据
 var fs = require('fs')
+
 var jsonfile = require('jsonfile')
 //定义要扫描的目标文件夹
 
@@ -105,7 +106,7 @@ router.get('/register',function (req,res) {
   if(userIndex == -1) {
     userData.push(obj)
     jsonfile.writeFile('./src/mock/userData.json',userData,function (err) {
-      console.log(err);
+      //console.log(err);
       if(!err){
         res.send("success")
       }
