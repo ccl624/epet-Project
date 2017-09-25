@@ -2,7 +2,7 @@
   <mt-swipe :auto="4000" v-if="bannerInfo">
     <mt-swipe-item v-for="(banner, index) in bannerInfo.value" :key="index">
       <router-link to="/goods" class="pointer">
-        <img :src="banner.image">
+        <img v-lazy="banner.image">
       </router-link>
     </mt-swipe-item>
   </mt-swipe>

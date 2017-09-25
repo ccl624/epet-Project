@@ -9,33 +9,41 @@
         <img src="./logo.png" alt="">
       </div>
       <div class="loginStyle">
-        <span>普通登录 <i v-show="false"></i></span>
-        <span>手机动态密码登录 <i v-show="true"></i></span>
+        <span @click="showCurrentFrom(0)">普通登录
+          <i v-show="showFrom == 0"></i>
+        </span>
+        <span @click="showCurrentFrom(1)">手机动态密码登录
+          <i v-show="showFrom == 1"></i>
+        </span>
       </div>
     </header>
     <div class="loginInput">
-      <div class="formBox" v-show="false">
+      <div class="formBox" v-if="showFrom == 0">
         <form action="login" method="post">
           <ul class="mform">
             <li>
               <span class="mNameIco"></span>
-              <input type="username" placeholder="手机号/邮箱/用户名" class="text" name="username" id="username"></li>
+              <input type="username" placeholder="手机号/邮箱/用户名" class="text"
+                     name="username" id="username" v-model="username"></li>
             <li>
               <span class="mpasswordIco"></span>
-              <input type="password" placeholder="输入密码" class="text" name="password" id="password"></li>
+              <input type="password" placeholder="输入密码" class="text"
+                     name="password" id="password" v-model="password"></li>
           </ul>
         </form>
       </div>
-      <div class="formBox">
+      <div class="formBox" v-if="showFrom == 1">
         <form action="login" method="post">
           <ul class="mform">
             <li>
               <span class="mNameIco"></span>
-              <input type="username" placeholder="已注册的手机号" class="text" name="username" id="phoneNumber">
+              <input type="username" placeholder="已注册的手机号" class="text"
+                     name="username" id="phoneNumber" v-model="phonenumber">
             </li>
             <li>
               <span class="mpasswordIco"></span>
-              <input type="text" placeholder="请输入图片内容" class="text" name="password" id="varifyImg">
+              <input type="text" placeholder="请输入图片内容" class="text"
+                     name="password" id="varifyImg" v-model="imgNumber">
             </li>
             <li>
               <span class="mpasswordIco"></span>
@@ -47,7 +55,7 @@
       <div class="forgetPsw">
         <a href="#/home">忘记密码 ？</a>
       </div>
-      <div class="loginBtn">
+      <div class="loginBtn" @click="sendAjax">
         <span>登录</span>
       </div>
       <div class="downloadApp">
@@ -76,7 +84,17 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
+    data(){
+      return {
+        showFrom: 0,
+        phonenumber:'',
+        username: '',
+        password: '',
+        imgNumber: '1234'
+      }
+    },
     mounted() {
 //      Indicator.close();
     },
@@ -84,7 +102,30 @@
     methods: {
       backPage () {
         history.back()
+      },
+      showCurrentFrom (index) {
+        this.showFrom = index
+      },
+      sendAjax () {
+        const username = this.username.trim()
+        const password = this.password
+        const url = `/api/userdata?username=${username}&password=${password}&userID=${Date.now()}`
+        axios.get(url).then( res => {
+          console.log("res",res.data);
+          const userIndex = res.data.findIndex((item) => {
+            return (item.username == this.username && item.password == this.password)
+          })
+          console.log("userIndex",userIndex);
+          if(userIndex == -1){
+            alert("用户名不存在")
+          }else{
+            alert("登录成功")
+          }
+          this.username = ''
+          this.password = ''
+        })
       }
+
     }
   }
 </script>

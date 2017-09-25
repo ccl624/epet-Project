@@ -1,24 +1,24 @@
 <template>
-  <div class="brands-judge pr10 pb10">
-    <ul class="judgeItems">
-      <li class="judgeItem" v-for="judge in judges">
-        <a :href="judge.link">
-        <div class="judgeItemImg mt10 ml10 bgf5 pb15">
+  <div class="brands-judge">
+    <ul class="judgeItems" v-if="ratings.list">
+      <li class="judgeItem" v-for="judge in ratings.list">
+        <router-link to="/goods">
+        <div class="judgeItemImg">
           <div class="main_img rela">
             <div class="thisimg rela loadimg-nofixed">
-              <img class="image" v-lazy="judge.judgeImg" lazy="loaded">
+              <img class="image" v-lazy="judge.main_image.image">
             </div>
-            <div class="ell cfff ftc ft12 join_time">加入E宠2年2月</div>
+            <div class="ft12 join_time">{{judge.join_time}}</div>
           </div>
-          <div class="mt5 clearfix ft12 pr5 pl5">
-            <span class="fl">红*****ω</span>
-            <span class="fr pet-name">中华田园猫</span>
+          <div class="clearfix">
+            <span class="fl">{{judge.username}}</span>
+            <span class="pet-name">{{judge.pet_des}}</span>
           </div>
-          <div class="mt5 ft13 pr5 pl5 c999 font-intro">
-            包装完美，没有破漏的情况存在，虽说是跨境运输，但是物流的速度还是比想象中快，最主要的还是正品保证，买得放心吃的安心
+          <div class="font-intro">
+            {{judge.comment_content}}
           </div>
         </div>
-      </a>
+      </router-link>
       </li>
     </ul>
   </div>
@@ -44,6 +44,9 @@
     }
   ]
   export default {
+    props: {
+      ratings:Object
+    },
     data () {
       return {
         judges: judges

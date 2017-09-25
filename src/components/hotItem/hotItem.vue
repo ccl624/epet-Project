@@ -1,17 +1,17 @@
 <template>
   <div class="divboximg flex">
     <div class="divimg" style="width: 42.53%; height: auto">
-      <router-link to="/goods">
-        <img name="319x379" :src="hotList.content_images[0][0].image">
+      <router-link to="/goods" v-if="hotList.content_images && hotList.content_images[0]">
+        <img name="319x379" v-lazy="hotList.content_images[0][0].image">
       </router-link>
     </div>
     <div class="divimg" style="width: 57.33%;">
-      <a href="http://sale.epet.com/m/mould/activity/ztMjQ5Mw%3D%3D.html?tid=2493&amp;fw=0">
-        <img name="430x189" src="https://img2.epetbar.com/nowater/2017-09/21/09/042df360a733282ab3544ce261e0a75d.jpg@!water" lazy="loaded">
-      </a>
-      <a href="https://wap.epet.com/main.html?menu_param=121&amp;is_single=1&amp;fw=0">
-        <img name="430x189" src="https://img2.epetbar.com/nowater/2017-09/21/10/fcb76da8467e018d480207720f0bd74a.jpg@!water" lazy="loaded">
-      </a>
+      <router-link to="/goods">
+        <img name="430x189" v-lazy="hotList.content_images[1][0].image">
+      </router-link>
+      <router-link to="/goods">
+        <img name="430x189" v-lazy="hotList.content_images[1][1].image">
+      </router-link>
     </div>
   </div>
 </template>
@@ -20,6 +20,9 @@
   export default {
     props: {
       hotList: Object
+    },
+    mounted() {
+      console.log("this.hotList",this.hotList)
     }
   }
 </script>

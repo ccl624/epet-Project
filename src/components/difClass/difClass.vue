@@ -17,7 +17,8 @@
     </header>
     <div class="leftbox" ref="leftbox">
       <ul>
-        <li :class="{on:isCurrent == index}" v-for="(category, index) in difClass.categorys" @click="showCurrent(index)">{{category.name}}</li>
+        <li :class="{on:isCurrent == index}" v-for="(category, index) in difClass.categorys"
+            @click="showCurrent(index)">{{category.name}}</li>
       </ul>
     </div>
     <div class="rightbox" v-if="difClass.categorys">
@@ -26,11 +27,11 @@
           <a href="javascript:;" class="title">{{difClass.categorys[isCurrent].cate_list[0].title}}</a>
           <ul class="hotItems">
             <li v-for="list in difClass.categorys[isCurrent].cate_list[0].list">
-              <router-link to="/goods" class="db">
+              <router-link to="/goods">
                 <div class="rela loadimg-nofixed">
-                  <img class="w100 image" :src="list.photo" lazy="loaded">
+                  <img class=" image" v-lazy="list.photo" lazy="loaded">
                 </div>
-                <p class="ftc ft12 mt10 c333">{{list.name}}</p>
+                <p class="ft12">{{list.name}}</p>
               </router-link>
             </li>
           </ul>

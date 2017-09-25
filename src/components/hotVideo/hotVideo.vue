@@ -1,44 +1,32 @@
 <template>
   <div>
     <ul class="cmVideoList cmVideoListIndex">
-      <li>
-        <a href="https://wap.epet.com/article/video/View.html?vid=50&amp;fw=0">
+      <li v-for="(hotVideo, index) in hotVideos" :key="index">
+        <a :href="hotVideo.link">
         <div class="imgBox">
-          <img src="https://img1.epetbar.com/2017-07/28/13/2506a15cf4e969125891d29f869b8572.jpg@!500w0h" lazy="loaded">
+          <img v-lazy="hotVideo.cover.image">
           <span class="cmallPlayIco"></span>
         </div>
         <div class="productDetail">
-          <div class="textover">神奇饮水除口臭</div>
+          <div class="textover">{{hotVideo.title}}</div>
           <div class="watchedCount">
             <span class="cmallViewIco mr3"></span>
-            <i>23671</i>
-            <span class="spaceline">|</span>01:13
+            <i>{{hotVideo.visit}}</i>
+            <span class="spaceline">|</span>{{hotVideo.time}}
           </div>
         </div>
       </a>
-      </li>
-      <li>
-        <a href="https://wap.epet.com/article/video/View.html?vid=50&amp;fw=0">
-          <div class="imgBox">
-            <img src="https://img1.epetbar.com/2017-07/28/13/2506a15cf4e969125891d29f869b8572.jpg@!500w0h" lazy="loaded">
-            <span class="cmallPlayIco"></span>
-          </div>
-          <div class="productDetail">
-            <div class="textover">神奇饮水除口臭</div>
-            <div class="watchedCount">
-              <span class="cmallViewIco mr3"></span>
-              <i>23671</i>
-              <span class="spaceline">|</span>01:13
-            </div>
-          </div>
-        </a>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      hotVideos:Array
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

@@ -3,7 +3,7 @@
     <div class="surprise">
       <div class="surprise-tit">
         <div class="titimg" v-if="surprise && surprise.surprise_icon">
-          <img :src="surprise.surprise_icon.image">
+          <img v-lazy="surprise.surprise_icon.image">
         </div>
         <div class="remindTime">距本场结束</div>
         <div class="surpriseTime">
@@ -15,7 +15,7 @@
         </div>
         <div class="more" v-show="showMore">
           <router-link to="/goods">
-            <img :src="surprise.right_image.image" alt="" />
+            <img v-lazy="surprise.right_image.image" alt="" />
           </router-link>
         </div>
       </div>
@@ -37,6 +37,8 @@
       secs:60
     },
     mounted () {
+
+      console.log("surprise",this.surprise.goods)
 //      setInterval(() => {
 //        this.secs = 60 - date.getSeconds()
 //        this.mins = 60 - date.getMinutes()

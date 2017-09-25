@@ -21,9 +21,13 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
-
+// var bodyParser = require('body-parser')
+// app.use(bodyParser.urlencoded({extended:false}));
 //mock加载数据
 //城市列表
+
+
+//console.log(content);
 const sheng = require('../src/mock/cities.json')
 const difClass = require('../src/mock/difClass.json')
 const goods = require('../src/mock/goods.json')
@@ -49,6 +53,39 @@ router.get('/goods',function (req, res) {
 router.get('/homeData',function (req, res) {
   res.send(homeData)
 })
+
+
+//用户数据
+var fs = require('fs')
+var jsonfile = require('jsonfile')
+//定义要扫描的目标文件夹
+
+var userData = []
+
+var content = jsonfile.readFile('./src/mock/userData.json',function (err,data) {
+  userData = data
+  if(!err){
+    console.log("111",data);
+  }
+});
+
+router.get('/userdata',function (req, res) {
+  var username = req.query.username
+  var password = req.query.password
+  var userID = req.query.userID
+  console.log(req.body);
+  console.log(req);
+  var obj = {
+    userID:userID,
+    username:username,
+    password:password
+  }
+  console.log(obj);
+  //userData.push(obj)
+  //jsonfile.writeFile('./src/mock/userData.json',userData);
+  res.send(userData)
+})
+
 
 app.use('/api', router)
 

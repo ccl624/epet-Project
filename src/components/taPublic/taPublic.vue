@@ -20,17 +20,17 @@
     </div>
     <div class="ta-brands">
       <div class="ta-brandName">
-        <img src="https://img2.epetbar.com/nowater/2016-12/02/12/c31f5c121481db47aaf92f04d6be2d6e.png">
+        <img v-lazy="taPublic.tagy_left_image.image">
       </div>
       <div class="ta-scrolldiv">
         <div class="ta-scroll" ref="toScroll">
           <ul>
-            <li class="swiper-slide" v-for="helpImg in helpImgs">
+            <li class="swiper-slide" v-for="helpImg in taPublic.list">
               <a href="">
-                <div class="db loadimg-fixed">
-                  <img :src="helpImg.imgSrc" alt="">
+                <div class="loadimg-fixed">
+                  <img v-lazy="helpImg.logo.image" alt="">
                 </div>
-                <div class="ft12 help-money ell">已捐助¥{{helpImg.helpMoney}}</div>
+                <div class="ft12 help-money ell">{{helpImg.donate_money_txt}}</div>
               </a>
             </li>
           </ul>
@@ -65,6 +65,9 @@
     }
   ]
   export default {
+    props: {
+      taPublic:Object
+    },
     data () {
       return {
         helpImgs: helpImgs

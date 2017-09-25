@@ -1,16 +1,16 @@
 <template>
   <div class="titleWrap">
     <div class="titleImg">
-      <img :src="src1" alt="" :style="`width:${width1};height:${height}px`">
+      <img v-lazy="src1" alt="" :style="`width:${width1};height:${height}px`">
     </div>
     <div :class="{more:showMore == 'more'}" v-show="showMore == 'more'">
       <a href="https://wap.epet.com/main.html?menu_param=121&pet_type=dog&fw=0">
-        <img :src="moreSrc" alt="" />
+        <img v-lazy="moreSrc" alt="" />
       </a>
     </div>
     <div :class="{taPublic:showMore == 'TA'}" v-show="showMore == 'TA'">
       <a href="https://wap.epet.com/main.html?menu_param=121&pet_type=dog&fw=0">
-        <img :src="moreSrc" alt="" />
+        <img v-lazy="moreSrc" alt="" />
       </a>
     </div>
     <div :class="{isLike:showMore == 'isLike'}" v-show="showMore == 'isLike'">

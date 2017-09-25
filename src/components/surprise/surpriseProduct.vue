@@ -3,7 +3,7 @@
     <ul class="productsList" v-if="">
       <li class="product" v-for="(supgood, index) in supgoods" :key="index">
         <router-link to="/goods">
-          <img :src="supgood.image.image" alt="">
+          <img v-lazy="supgood.image.image" alt="">
           <div class="currentPrice">
             <span class="ft12">¥</span>
             <span class="ft14">{{supgood.sale_price}}</span>
@@ -19,7 +19,7 @@
   import Bscroll from 'better-scroll'
   export default {
     props: {
-      supgoods: []
+      supgoods: Array
     },
     mounted () {
       this.$nextTick(() => {

@@ -26,9 +26,9 @@
             <li v-for="good in goods.list">
               <a href="">
                 <div class="brandImg">
-                  <img :src="good.photo" alt="">
+                  <img v-lazy="good.photo" alt="">
                   <div class="countryImg">
-                    <img :src="good.country_photo" alt="">
+                    <img v-lazy="good.country_photo" alt="">
                   </div>
                   <div :class="{soldOut:good.stock==0}"></div>
                 </div>
@@ -37,7 +37,7 @@
                 <a href="https://wap.epet.com/goods/171477.html?fw=0"></a>
                 <a href="https://wap.epet.com/goods/171477.html?fw=0">
                   <h1>
-                    <img :src="good.gtype_icon.image" alt="">
+                    <img v-lazy="good.gtype_icon.image" alt="">
                     {{good.subject}}
                   </h1>
                 </a>
