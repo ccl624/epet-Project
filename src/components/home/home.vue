@@ -53,6 +53,7 @@
 
 <script>
   import Bscroll from 'better-scroll'
+  import PubSub from 'pubsub-js'
   import axios from 'axios'
 
   import homeBanner from '../banner/banner.vue'
@@ -70,7 +71,8 @@
   export default {
     data () {
       return {
-        homeData:{}
+        homeData:{},
+        isTap: 0
       }
     },
     mounted () {
@@ -85,6 +87,9 @@
           })
         })
       })
+
+      PubSub.publish('isHome', 0)
+
     },
     methods: {
       refreshScroll () {

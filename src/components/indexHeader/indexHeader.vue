@@ -103,9 +103,14 @@
       }
     },
     mounted () {
-      console.log(this.$refs.routerData);
+      PubSub.subscribe('isHome',(msg, data) =>{
+        this.isTap = data
+      })
+      PubSub.subscribe('isLogin',(msg, data) => {
+        this.isLogin = data
+      })
       this.defaultlocation = localStorage.getItem('mylocation')
-      console.log(this.defaultlocation);
+
       this.$nextTick(() => {
         const liWidth = 74.5
         const ul = this.$refs.navbar.children[0]

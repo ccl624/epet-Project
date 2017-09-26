@@ -72,6 +72,7 @@
           const phoneNumRex = /1[3|5|7|8|]\d{9}/
           if(!phoneNumRex.test(phonenumber)){
             MessageBox('提示','电话号码格式不正确')
+            this.phonenumber = ''
             return
           }
         }

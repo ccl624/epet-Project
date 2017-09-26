@@ -44,6 +44,7 @@
 <script>
   import axios from 'axios'
   import Bscroll from 'better-scroll'
+  import PubSub from 'pubsub-js'
   export default {
     data () {
       return {
@@ -52,7 +53,7 @@
       }
     },
     mounted () {
-
+      PubSub.publish('isHome',1)
       axios.get('/api/difClass').then((res) => {
 
         this.difClass = res.data

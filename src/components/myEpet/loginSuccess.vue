@@ -11,14 +11,15 @@
   export default {
     data () {
       return {
-        username:''
+        username:'',
+        isLogin: true
       }
     },
     mounted () {
       PubSub.subscribe('msg',(msg, data) => {
         this.username = data
       })
-
+      PubSub.publish('isLogin', this.isLogin)
       this.username = localStorage.getItem('username')
 
       if(!this.username){
@@ -28,6 +29,7 @@
     methods: {
       logOut () {
         localStorage.removeItem('username')
+        PubSub.publish('isLogin',false)
         location.href="#/login"
       },
       backToHome () {
