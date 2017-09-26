@@ -22,7 +22,7 @@
       hotList: Object
     },
     mounted() {
-      console.log("this.hotList",this.hotList)
+
     }
   }
 </script>

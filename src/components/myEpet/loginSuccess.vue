@@ -17,7 +17,6 @@
     mounted () {
       PubSub.subscribe('msg',(msg, data) => {
         this.username = data
-        localStorage.setItem('username',this.username)
       })
 
       this.username = localStorage.getItem('username')

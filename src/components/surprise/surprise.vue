@@ -7,11 +7,11 @@
         </div>
         <div class="remindTime">距本场结束</div>
         <div class="surpriseTime">
-          <span class="remindHours time" v-text="12"></span>
+          <span class="remindHours time" v-text="hour"></span>
           <span>:</span>
-          <span class="remindMinutes time" v-text="12"></span>
+          <span class="remindMinutes time" v-text="mins"></span>
           <span>:</span>
-          <span class="remindSeconds time" v-text="12"></span>
+          <span class="remindSeconds time" v-text="secs"></span>
         </div>
         <div class="more" v-show="showMore">
           <router-link to="/goods">
@@ -32,18 +32,37 @@
     props: {
       showMore: Boolean,
       surprise: Object,
-      hour:2,
-      mins:60,
-      secs:60
+    },
+    data () {
+      return {
+        hour:'00',
+        mins:'00',
+        secs:'00',
+        t:0
+      }
+    },
+    methods: {
+     fix(num, length) {
+        return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
+      }
     },
     mounted () {
+      let t = setInterval(()=>{
+        let EndTime= new Date('2017/09/26 08:37:00')
+        let NowTime = new Date()
+        this.t = EndTime.getTime() - NowTime.getTime()
+//      let d=Math.floor(t/1000/60/60/24)
+        this.hour = this.fix(Math.floor(this.t /1000/60/60%24), 2)
+        this.mins = this.fix(Math.floor(this.t /1000/60%60), 2)
+        this.secs = this.fix(Math.floor(this.t /1000%60), 2)
 
-      console.log("surprise",this.surprise.goods)
-//      setInterval(() => {
-//        this.secs = 60 - date.getSeconds()
-//        this.mins = 60 - date.getMinutes()
-//        this.hour = 2
-//      },1000)
+        if( this.t <= 0 ){
+          clearInterval(t)
+          this.hour = '00'
+          this.mins = '00'
+          this.secs = '00'
+        }
+      },1000)
     },
     computed: {
 

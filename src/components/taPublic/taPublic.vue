@@ -80,7 +80,6 @@
         const liCount = ul.children.length
         ul.style.width = liCount * liWidth - 11  + 'px'
         const toScroll = this.$refs.toScroll
-        console.log(toScroll)
         this.homeContent = new Bscroll(toScroll,{
           click: true,
           scrollX: true

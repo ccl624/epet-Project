@@ -29,8 +29,7 @@
       moreSrc: String
     },
     mounted () {
-      console.log(this.src1);
-      console.log(this.width1);
+
     }
   }
 </script>

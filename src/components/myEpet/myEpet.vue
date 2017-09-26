@@ -40,7 +40,7 @@
             <li>
               <span class="mNameIco"></span>
               <input type="username" placeholder="已注册的手机号" class="text"
-                     name="username" id="phoneNumber" v-model="phonenumber">
+                     name="username" id="phoneNumber" v-model="phonenumber" @blur="ifyPhonenumber">
             </li>
             <li>
               <span class="mpasswordIco"></span>
@@ -115,38 +115,39 @@
       sendAjax () {
         const username = this.username.trim()
         const password = this.password.trim()
-        const url = `/api/login?username=${username}&password=${password}&userID=${Date.now()}`
+        //const url = `/api/login?username=${username}&password=${password}&userID=${Date.now()}`
         axios.get('/api/login',{
           params: {
             username,
             password
           }
         }).then( res => {
-          const userIndex = res.data.find((item) => {
-          return (item.username === username || item.phonenumber == username)
-          })
-
-          //console.log(userIndex.password.trim());
-          this.$nextTick(() => {
-            if(!userIndex){
-              MessageBox('提示', '登录失败，请重新登录')
-            }else if(password){
-              if(userIndex.password.trim() === password){
-                console.log(111);
-                PubSub.publish('msg',userIndex.username)
-                location.href="#/loginSuccess";
-              }else{
-                MessageBox('提示', '密码错误')
+          if(res.data.success){
+            try{
+              localStorage.setItem('username',res.data.username)
+            }catch(oException){
+              if(oException.name === 'QuotaExceededError'){
+                console.log('已经超出本地存储限定大小！');
+                // 可进行超出限定大小之后的操作，如下面可以先清除记录，再次保存
+                localStorage.clear();
+                localStorage.setItem('username',res.data.username)
               }
-            }else{
-              MessageBox('提示', '其他错误')
             }
-          })
-
-          this.username = ''
-          this.password = ''
+            MessageBox("提示",res.data.msg)
+            PubSub.publish('msg',res.data.username)
+            location.href="#/loginSuccess";
+          }else{
+            MessageBox("提示",res.data.msg)
+            this.username = ''
+            this.password = ''
+          }
         })
       }
+
+    },
+    ifyPhoneNumber () {
+      const phoneNumRex = /1[3|5|7|8|]\d{9}/
+      const usernameRex = /^[a-zA-Z0-9_-]{4,16}$/;
 
     }
   }

@@ -98,7 +98,7 @@
         liArry: liArry,
         currentli: 0,
         isTap:0,
-
+        isLogin:false
       }
     },
     mounted () {
@@ -108,13 +108,13 @@
         const liCount = ul.children.length
         ul.style.width = liCount * liWidth  + 'px'
         const navbar = this.$refs.navbar
-        console.log(navbar)
         this.navbar = new Bscroll(navbar,{
           click: true,
           scrollX: true,
         })
       })
-      console.log(this.isLogin)
+
+      this.isLogin = localStorage.getItem('username')
     },
     methods: {
       isCurrent (index) {
@@ -125,10 +125,10 @@
       }
     },
     computed: {
-      isLogin () {
-        console.log(localStorage.getItem('username'));
-        return !!localStorage.getItem('username')
-      }
+//      isLogin () {
+//        console.log(localStorage.getItem('username'))
+//        return !!localStorage.getItem('username')
+//      }
     }
   }
 </script>

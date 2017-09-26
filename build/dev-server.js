@@ -61,28 +61,59 @@ var fs = require('fs')
 var jsonfile = require('jsonfile')
 //定义要扫描的目标文件夹
 
-var userData = []
-
-var content = jsonfile.readFile('./src/mock/userData.json',function (err,data) {
-  userData = data
-  if(!err){
-    console.log("111",data);
-  }
-});
-
 router.get('/login',function (req, res) {
-  var username = req.query.username
-  var password = req.query.password
+  var username = req.query.username.trim()
+  var password = req.query.password.trim()
   var userID = req.query.userID
-  console.log(req.body);
-  console.log(req);
+
   var obj = {
     userID:userID,
     username:username,
     password:password
   }
-  console.log(obj);
-  res.send(userData)
+
+  jsonfile.readFile('./src/mock/userData.json',function (err,data) {
+    if(!err){
+      const userData = data
+      //res.send(userData)
+
+      const userIndex = userData.find((item) => {
+        return (item.username === username || item.phonenumber === username)
+      })
+        userIndex?
+        password?
+        userIndex.password.trim() === password ?
+        res.send({success: true, msg: "登录成功",username:userIndex.username}):
+        res.send({msg:'密码错误,请重新登录', success: false}):
+        res.send({msg:'请输入密码', success: false}):
+        res.send({success:false, msg:'用户名不存在，请重新登录'})
+
+      // if(!userIndex){
+      //   res.send({success:false, msg:'登录失败，请重新登录'})
+      // }else if(password){
+      //   // if(userIndex.password.trim() === password){
+      //   //   res.send({
+      //   //     success: true,
+      //   //     msg: "登录成功"
+      //   //   })
+      //   // }else{
+      //   //   res.send({
+      //   //     msg:'密码错误,请重新登录',
+      //   //     success: false
+      //   //   })
+      //   // }
+      // }else{
+      //   res.send({msg:'其他错误', success: false})
+      // }
+    }else{
+      res.send({
+        success: false,
+        msg:'读取用户数据失败'
+      });
+    }
+  });
+
+
 })
 
 router.get('/register',function (req,res) {
@@ -99,22 +130,30 @@ router.get('/register',function (req,res) {
     ifyImgCode,
     activeCode
   }
-  const userIndex = userData.findIndex(function (item) {
-    return item.username === username
-  })
+  jsonfile.readFile('./src/mock/userData.json',function (err,data) {
+    if(!err){
+      const userData = data
 
-  if(userIndex == -1) {
-    userData.push(obj)
-    jsonfile.writeFile('./src/mock/userData.json',userData,function (err) {
-      //console.log(err);
-      if(!err){
-        res.send("success")
+      const userIndex = userData.findIndex(function (item) {
+        return item.username === username
+      })
+
+      if(userIndex == -1) {
+        userData.push(obj)
+        jsonfile.writeFile('./src/mock/userData.json',userData,function (err) {
+          //console.log(err);
+          if(!err){
+            res.send("success")
+          }
+        });
+      }else{
+        res.send("failed")
       }
-    });
-  }else{
-    res.send("failed")
-  }
 
+    }else{
+      res.send('读取用户数据失败');
+    }
+  })
 })
 
 

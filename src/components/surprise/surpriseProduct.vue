@@ -28,7 +28,6 @@
         const liCount = ul.children.length
         ul.style.width = liCount * liWidth + 10 + 'px'
         const surpriseProduct = this.$refs.surpriseProduct
-        console.log(surpriseProduct)
         this.surpriseProduct = new Bscroll(surpriseProduct,{
           click: true,
           scrollX: true

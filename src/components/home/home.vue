@@ -77,7 +77,6 @@
       axios.get('/api/homeData').then( res => {
         //console.log('home',res.data);
         this.homeData = res.data
-        console.log(this.homeData);
         this.$nextTick(() => {
           const homeContent = this.$refs.homeContent
           //console.log(homeContent)
