@@ -1,8 +1,8 @@
 <template>
   <div class="loginSuccess">
-    <button @click="backToHome" class="backToHome">回到首页</button>
+    <a href="javascript:;" @click="backToHome" class="backToHome">回到首页</a>
     <p class="username">{{username}}</p>
-    <button @click="logOut" class="logout">退出</button>
+    <a href="javascript:;" @click="logOut" class="logout">退出</a>
   </div>
 </template>
 
@@ -44,7 +44,7 @@
   width 100%
   height 100%
   z-index 110
-  background-color #fff
+  background-color lightgoldenrodyellow
   color #333
   text-align center
   .username
@@ -58,14 +58,16 @@
     left 0
     width 100%
     height 50px
-    background-color orange
-    border-radius 10px
+    line-height 50px
+    background-color lightblue
+    //border-radius 10px
   .logout
     position absolute
     left 0
     bottom 0px
     width 100%
     height 50px
-    background-color red
-    border-radius 10px
+    line-height 50px
+    background-color pink
+    //border-radius 10px
 </style>

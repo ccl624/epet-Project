@@ -40,18 +40,18 @@
             <li>
               <span class="mNameIco"></span>
               <input type="username" placeholder="已注册的手机号" class="text"
-                     name="username" id="phoneNumber" v-model="phonenumber" @blur="ifyPhonenumber">
+                     name="username" id="phoneNumber" v-model="phonenumber">
             </li>
             <li>
               <span class="mpasswordIco"></span>
               <input type="text" placeholder="请输入图片内容" class="text"
                      name="password" id="varifyImg" v-model="imgNumber">
-              <img class="ifyImgCode" src="./seccode.jpg" alt="">
+              <img class="ifyImgCode" :src="imgActiveCode" @click="changeImgCode">
             </li>
             <li>
               <span class="mpasswordIco"></span>
-              <input type="password" placeholder="动态密码" class="text" name="password" id="code">
-              <a class="getCode" href="javascript:;">获取动态密码</a>
+              <input type="password" placeholder="动态密码" class="text" name="password" id="code" v-model="myCode">
+              <a class="getCode" href="javascript:;" @change="" @click="getActiveCode">获取动态密码</a>
             </li>
           </ul>
         </form>
@@ -59,7 +59,10 @@
       <div class="forgetPsw">
         <a href="#/home">忘记密码 ？</a>
       </div>
-      <div class="loginBtn" @click="sendAjax">
+      <div class="loginBtn" v-if="showFrom === 0" @click="sendAjax0">
+        <span>登录</span>
+      </div>
+      <div class="loginBtn" v-if="showFrom === 1" @click="sendAjax1">
         <span>登录</span>
       </div>
       <div class="downloadApp">
@@ -91,6 +94,8 @@
   import axios from 'axios'
   import { MessageBox } from 'mint-ui'
   import PubSub from 'pubsub-js'
+  import Base64 from 'js-base64'
+  //import '../../util/sms_util'
   export default {
     data(){
       return {
@@ -98,13 +103,11 @@
         phonenumber:'',
         username: '',
         password: '',
-        imgNumber: ''
+        imgNumber: '',
+        myCode:'',
+        imgActiveCode:`/api/imgCode.png?imgcode=${parseInt(Math.random()*9000+1000)}`
       }
     },
-    mounted() {
-//      Indicator.close();
-    },
-
     methods: {
       backPage () {
         location.href="#/home";
@@ -112,14 +115,24 @@
       showCurrentFrom (index) {
         this.showFrom = index
       },
-      sendAjax () {
+      sendAjax0 () {
         const username = this.username.trim()
         const password = this.password.trim()
+        const userid = Date.now()
+
+        const usernameRex = /^[a-zA-Z0-9_-]{4,16}$/
+        if(!usernameRex.test(username)){
+          MessageBox('提示','请输入4-16位的用户名')
+          this.username = ''
+          this.password = ''
+          return
+        }
         //const url = `/api/login?username=${username}&password=${password}&userID=${Date.now()}`
-        axios.get('/api/login',{
+        axios.get('/api/login/default',{
           params: {
             username,
-            password
+            password,
+            userid
           }
         }).then( res => {
           if(res.data.success){
@@ -142,12 +155,80 @@
             this.password = ''
           }
         })
-      }
+      },
+      sendAjax1 () {
+        console.log(11111);
+        const imgNumber = this.imgNumber.trim()
+        const myCode  = this.myCode.trim()
+        const phonenumber = this.phonenumber.trim()
+        const imgActiveCode = this.imgActiveCode
 
+        const phoneNumRex = /1[3|5|7|8|]\d{9}/
+
+        if(!phoneNumRex.test(phonenumber)){
+          MessageBox('提示','电话号码格式不正确')
+          return
+        }
+
+
+
+        axios.get('/api/login/phoneCode',{
+          params: {
+            imgNumber,
+            myCode,
+            phonenumber,
+            imgActiveCode
+          }
+        }).then( res => {
+          if(res.data.success){
+            try{
+              localStorage.setItem('username',res.data.username)
+            }catch(oException){
+              if(oException.name === 'QuotaExceededError'){
+                console.log('已经超出本地存储限定大小！');
+                // 可进行超出限定大小之后的操作，如下面可以先清除记录，再次保存
+                localStorage.clear();
+                localStorage.setItem('username',res.data.username)
+              }
+            }
+            MessageBox("提示",res.data.msg)
+            PubSub.publish('msg',res.data.username)
+            location.href="#/loginSuccess";
+          }else{
+            MessageBox("提示",res.data.msg)
+            this.phonenumber = ''
+            this.myCode = ''
+            this.myCode =''
+            this.imgNumber= ''
+          }
+        })
+      },
+      sendAjax (showFrom) {
+        if(showFrom === 0){
+          this.sendAjax0 ()
+        }else{
+          this.sendAjax1 ()
+        }
+      },
+      ifyPhoneNumber () {
+        const phoneNumRex = /1[3|5|7|8|]\d{9}/
+        const usernameRex = /^[a-zA-Z0-9_-]{4,16}$/
+      },
+      getActiveCode () {
+        axios.get('/api/activeCode').then(res => {
+          this.activeCode = res.data
+        })
+      },
+//      checkCode () {
+//        this.myCode = this.activeCode
+//      },
+      changeImgCode () {
+        this.codeImg = parseInt(Math.random()*9000+1000)
+        this.imgActiveCode = `/api/imgCode.png?imgcode=${this.codeImg}`
+        this.imgNumber= ''
+      }
     },
-    ifyPhoneNumber () {
-      const phoneNumRex = /1[3|5|7|8|]\d{9}/
-      const usernameRex = /^[a-zA-Z0-9_-]{4,16}$/;
+    computed : {
 
     }
   }

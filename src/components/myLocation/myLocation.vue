@@ -1,6 +1,6 @@
 <template>
   <div class="myLocation" ref="myLocation">
-    <div>
+    <div ref="scrollArea">
       <header class="headTop">
         <span class="back" @click="backPage"></span>
         <span class="title">选择收货地区</span>
@@ -13,11 +13,11 @@
           <span class="petClass">水族站</span>
         </div>
         <div>
-          <div class="defaultLocation">
-            <span>当前默认地址：天津 和平区</span>
+          <div class="defaultLocation" :class="{scrolled:isScrollY}" ref="dflocation">
+            <span>当前默认地址：{{locationDetail}}</span>
           </div>
           <ul class="data-reactid">
-            <li v-for="location in locations">{{location.name}}</li>
+            <li v-for="mylocation in locations" @click="nextLevel(mylocation)">{{mylocation.name ? mylocation.name:mylocation}}</li>
           </ul>
         </div>
       </div>
@@ -27,11 +27,14 @@
 
 <script>
   import Bscroll from 'better-scroll'
+  import PubSub from 'pubsub-js'
   import axios from 'axios'
   export default {
     data () {
       return {
         locations: [],
+        locationDetail:'重庆',
+        isScrollY: false
       }
     },
     mounted () {
@@ -44,14 +47,52 @@
           const myLocation = this.$refs.myLocation
           console.log(myLocation)
           this.myLocation = new Bscroll(myLocation,{
+            probeType: 3,
             click: true
           })
+
+          this.myLocation.on('scroll', (pos) => {
+            console.log(pos);
+            if(pos.y < 0){
+              this.isScrollY = true
+              this.$refs.dflocation.style.top = -pos.y+'px'
+            }else {
+              this.isScrollY = false
+            }
+          })
         })
+
+
       })
+      this.locationDetail = localStorage.getItem('mylocation')
+      //localStorage.clear('mylocation')
     },
     methods: {
       backPage () {
         history.back()
+      },
+      nextLevel (mylocation) {
+        if(mylocation.name){
+          if(mylocation.hasOwnProperty('city')){
+            this.locationDetail = ''
+          }
+          this.locationDetail = this.locationDetail+' '+mylocation.name
+          PubSub.publish('mylocation',this.locationDetail)
+        }else{
+          this.locationDetail = this.locationDetail+' '+mylocation
+          location.href="#/home"
+          localStorage.setItem('mylocation', this.locationDetail)
+        }
+        if(mylocation.hasOwnProperty('city')){
+          this.locations = mylocation.city
+        }else if(mylocation.hasOwnProperty('area')){
+          this.locations = mylocation.area
+        }
+        this.$nextTick(()=>{
+          this.myLocation.refresh()
+          this.isScrollY = false
+          this.$refs.scrollArea.style.transform = 'translate(0px, 0px)'
+        })
       }
     }
   }
@@ -59,7 +100,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
 .myLocation
-  position fixed
+  position absolute
   top 0
   width 100%
   height 100%
@@ -129,4 +170,10 @@
     font-size: 14px;
     padding: 10px;
     text-align left
+  .scrolled
+    z-index: 200;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
 </style>

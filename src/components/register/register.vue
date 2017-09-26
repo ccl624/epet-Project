@@ -12,12 +12,12 @@
             <span class="ifyImgIco commonCss"></span>
             <input type="text" placeholder="图片验证码" class="text"
                    name="text" id="varifyImg" v-model="ifyImgCode">
-            <img class="ifyImg" src="./seccode.jpg" alt="">
+            <img class="ifyImg" :src="imgActiveCode" alt="" @click="changeImgCode">
           </li>
           <li>
             <span class="ifyMsgIcon commonCss"></span>
             <input type="text" placeholder="验证码" class="text" name="text" v-model="activeCode">
-            <a class="getifyMsg">获取短信验证码</a>
+            <a href="javascript:;" class="getifyMsg" @click="getCode">获取短信验证码</a>
           </li>
           <li>
             <span class="nicknameIco commonCss"></span>
@@ -52,7 +52,8 @@
         username:'',
         activeCode:'',
         password:'',
-        confirmPassword:''
+        confirmPassword:'',
+        imgActiveCode: `/api/imgCode.png?imgcode=${parseInt(Math.random()*9000+1000)}`
       }
     },
     methods: {
@@ -63,24 +64,48 @@
         const activeCode = this.activeCode.trim()
         const password = this.password.trim()
         const confirmPassword = this.confirmPassword.trim()
+        const imgActiveCode = this.imgActiveCode.trim()
         if(!phonenumber){
           MessageBox('提示', '手机号不能为空')
           return
+        }else{
+          const phoneNumRex = /1[3|5|7|8|]\d{9}/
+          if(!phoneNumRex.test(phonenumber)){
+            MessageBox('提示','电话号码格式不正确')
+            return
+          }
         }
 
         if(!ifyImgCode){
           MessageBox('提示', '图片验证码不能为空')
           return
+        }else{
+          if(ifyImgCode !== imgActiveCode.substring(imgActiveCode.length-4) ){
+            MessageBox('提示', '图片验证码不匹配')
+            return
+          }
         }
 
         if(!activeCode){
           MessageBox('提示', '验证码不能为空')
           return
+        }else{
+          if(this.activeMsgCode === activeCode ){
+            MessageBox('提示', '验证码不匹配')
+          }
         }
 
         if(!username){
           MessageBox('提示', '用户名不能为空')
           return
+        }else{
+          const usernameRex = /^[a-zA-Z0-9_-]{4,16}$/
+          if(!usernameRex.test(username)){
+            MessageBox('提示','请输入4-16位的用户名')
+            this.username = ''
+            this.password = ''
+            return
+          }
         }
 
         if(!password){
@@ -106,17 +131,24 @@
           }
         }).then( res => {
           console.log(res.data);
-          if(res.data == "success"){
-            MessageBox('提示', '注册成功')
+          if(res.data.success){
+            MessageBox('提示', res.data.msg)
             location.href="#/login"
           }else{
-            MessageBox('提示', '用户名已存在')
+            MessageBox('提示', res.data.msg)
           }
         })
-
-
-
-      }
+      },
+      changeImgCode () {
+        this.codeImg = parseInt(Math.random()*9000+1000)
+        this.imgActiveCode = `/api/imgCode.png?imgcode=${this.codeImg}`
+        this.ifyImgCode= ''
+      },
+      getCode () {
+        axios.get('/api/activeCode').then(res => {
+          this.activeMsgCode = res.data
+        })
+      },
     }
   }
 </script>

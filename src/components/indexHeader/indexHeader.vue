@@ -9,7 +9,7 @@
                 <!--狗狗站|重庆-->
                 <span class="catordog c89">狗狗站</span>
                 <span class="c89">|</span>
-                <span data-name="my-place" class="myposition c89 ft13">重庆</span>
+                <span data-name="my-place" class="myposition c89 ft13">{{defaultlocation}}</span>
                 <i></i>
               </router-link>
             </div>
@@ -98,10 +98,14 @@
         liArry: liArry,
         currentli: 0,
         isTap:0,
-        isLogin:false
+        isLogin:false,
+        defaultlocation:"重庆"
       }
     },
     mounted () {
+      console.log(this.$refs.routerData);
+      this.defaultlocation = localStorage.getItem('mylocation')
+      console.log(this.defaultlocation);
       this.$nextTick(() => {
         const liWidth = 74.5
         const ul = this.$refs.navbar.children[0]
@@ -113,8 +117,10 @@
           scrollX: true,
         })
       })
-
-      this.isLogin = localStorage.getItem('username')
+      PubSub.subscribe('mylocation',(msg, data) => {
+        this.defaultlocation = data
+      })
+      //this.defaultlocation = PubSub.subscribe('mylocation')
     },
     methods: {
       isCurrent (index) {
@@ -125,9 +131,8 @@
       }
     },
     computed: {
-//      isLogin () {
-//        console.log(localStorage.getItem('username'))
-//        return !!localStorage.getItem('username')
+//      defaultlocation(){
+//        return localStorage.getItem('mylocation')
 //      }
     }
   }
@@ -160,6 +165,11 @@
               color #333
               font-size 14px
               line-height 27px
+              /*.myposition*/
+                /*display block*/
+                /*text-overflow ellipsis*/
+                /*white-space nowrap*/
+                /*overflow hidden*/
               .c89
                 color #898989
               .ft13
