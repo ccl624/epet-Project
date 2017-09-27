@@ -110,7 +110,6 @@
         this.isLogin = data
       })
       this.defaultlocation = localStorage.getItem('mylocation')
-
       this.$nextTick(() => {
         const liWidth = 74.5
         const ul = this.$refs.navbar.children[0]

@@ -1,7 +1,7 @@
 <template>
   <div class="mainHeader">
-    <div class="downloadApp">
-      <span class="closeBtn">
+    <div class="downloadApp" v-show="isClose">
+      <span class="closeBtn" @click="closeBtn">
         <img id="close_down_bar" src="./closebtn_03.png">
       </span>
       <div class="downloadImg">
@@ -18,6 +18,21 @@
   //import { Header } from 'mint-ui'
   import indexHeader from '../indexHeader/indexHeader.vue'
   export default {
+    data(){
+      return {
+        isClose: true
+      }
+    },
+    mounted (){
+      this.isClose = localStorage.getItem('isClose')
+      console.log(this.isClose);
+    },
+    methods: {
+      closeBtn () {
+        this.isClose = false
+        localStorage.setItem('isClose',this.isClose)
+      }
+    },
     components: {
       indexHeader
     }
