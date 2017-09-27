@@ -48,7 +48,7 @@
     },
     mounted () {
       let t = setInterval(()=>{
-        let EndTime= new Date('2017/09/26 08:37:00')
+        let EndTime= new Date('2017/09/27 17:00:00')
         let NowTime = new Date()
         this.t = EndTime.getTime() - NowTime.getTime()
 //      let d=Math.floor(t/1000/60/60/24)
